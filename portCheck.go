@@ -22,17 +22,28 @@ import(
 	"net"
 )
 
+// Edit this to view a smaller or larger port range
+const PORT_RANGE = 1024
+
+
 func main() {
 
-	// Run Go Dial network connection to scan service
-	_, err := net.Dial("tcp", "scanme.nmap.org:80")
+	// Iterate through port range
+	for i := 1; i <= PORT_RANGE; i++ {
 
-	// Output success
-	if err == nil {
-		fmt.Println("SUCCESS: nmap port 80 scan succeeded!")
-	}
-	else {
-		fmt.Println("FAILURE: nmap port 80 scan unsuccessful")
+		// Format address for Go Dial function
+		address := fmt.Sprintf("scanme.nmap.org:%d", i)
+		conn, err := net.Dial("tcp", address)
+
+		// In the event port is closed or filtered through firewall, have the program continue
+		if err != nil {
+			continue
+		}
+
+		// Close connection
+		conn.Close()
+		fmt.Printf("%d open\n", i)
+
 	}
 
 }
