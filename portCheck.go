@@ -24,12 +24,15 @@ import(
 
 func main() {
 
+	// Run Go Dial network connection to scan service
 	_, err := net.Dial("tcp", "scanme.nmap.org:80")
 
+	// Output success
 	if err == nil {
-
-		fmt.Println("Connection Successful!")
-
+		fmt.Println("SUCCESS: nmap port 80 scan succeeded!")
+	}
+	else {
+		fmt.Println("FAILURE: nmap port 80 scan unsuccessful")
 	}
 
 }
