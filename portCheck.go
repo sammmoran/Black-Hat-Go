@@ -59,14 +59,6 @@ func main() {
 	results := make(chan int)
 	var openports []int
 
-	// The WaitGroup is a struct that will let us implement concurrency in a thread-safe way. 
-	// Add() will increase the internal counter by one for each port being scanned at the moment.
-	// Done() will decrement the counter by one once the port has gone through its scan.
-	// Wait() will block execution of the goroutine in which it's called until the internal counter reaches zero.
-	// This will ensure that our goroutine waits until the connection actually takes place so that it doesn't complete and exit once the loop finishes.
-	// var wg sync.WaitGroup
-
-
 	for i := 0; i <= cap(ports); i++ {
 
 		go worker(ports, results)
